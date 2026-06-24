@@ -145,7 +145,7 @@ def generar_grafico(pregunta: str, df:pd.DataFrame) -> str:
         ## Metadatos del DataFrame:
         {columnas}
 
-        ## Muestra de los datos (las 3 primeras filas son una estructura de ejemplo):
+        ## Muestra de los datos (Solo 3 filas de ejemplo, el DataFrame real es mucho más grande):
         {muestra}
 
         ## Instrucciones obligatorias:
@@ -163,7 +163,7 @@ def generar_grafico(pregunta: str, df:pd.DataFrame) -> str:
         7. Posiciona el título a la izquierda con `loc='left'`, deja el `pad=20` y usa `fontsize=14`;
         8. Mantén los ticks del eje X sin rotación con `plt.xticks(rotation=0)`;
         9. Elimina los bordes superior y derecho del gráfico con `sns.despine()`;
-        10. Utiliza SIEMPRE el DataFrame completo (`df`). 11. NO filtres, limites ni escribas manualmente los valores de las categorías basándote en la estructura de ejemplo. El código debe agrupar y graficar SIEMPRE todas las categorías existentes en la columna solicitada leyendo dinámicamente el DataFrame completo.;
+        10. Utiliza SIEMPRE el DataFrame completo (`df`). Pasa el DataFrame completo directamente a la función de Seaborn (ejemplo: `data=df`). ESTÁ ESTRICTAMENTE PROHIBIDO usar `.head()`, recortes (slices), o aplicar filtros sobre `df` antes de graficar;
         11. Finaliza el código con `plt.show()`.
 
         Devuelve ÚNICAMENTE el código Python, sin ningún texto adicional ni explicación.
