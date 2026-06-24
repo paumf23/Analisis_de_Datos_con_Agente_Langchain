@@ -46,6 +46,8 @@ if archivo_cargado:
         temperature=0
     )
 
+    llm_con_stop = llm.bind(stop=["\nObservation:", "Observation:", "\nQuestion:", "Question:"])
+
     # Herramientas
     tools = crear_herramientas(df)
 
@@ -74,7 +76,12 @@ if archivo_cargado:
             Thought: Debes siempre pensar en lo que debes hacer
             Action: La acción que será ejecutada, debe ser una de las [{tool_names}]
             Action Input: La entrada para la acción
+
+            ¡IMPORTANTE! Después de escribir el "Action Input", DETENTE INMEDIATAMENTE. NO intentes calcular, adivinar ni inventar el resultado. NO escribas "Question:". 
+
             Observation: El resultado de la acción
+
+            
             ... (este Thought/Action/Action Input/Observation puede repetirse N veces)
             Thought: Ahora sé la respuesta final
             Final Answer: La respuesta final para la pregunta de entrada inicial.
@@ -88,11 +95,13 @@ if archivo_cargado:
 
     
     # Agente
-    agente = create_react_agent(llm=llm, tools=tools, prompt=prompt_react_es)
+    agente = create_react_agent(llm=llm_con_stop, tools=tools, prompt=prompt_react_es)
     orquestador = AgentExecutor(agent=agente,
                                 tools=tools,
                                 verbose=True,
-                                handle_parsing_errors=True)
+                                handle_parsing_errors=True,
+                                max_iterations=4,
+                                early_stopping_method="generate")
 
     # ACCIONES RÁPIDAS
     st.markdown("---")
@@ -101,7 +110,7 @@ if archivo_cargado:
     # Reporte de Informaciones Generales
     if st.button("📄 Reporte de Informaciones Generales", key="boton_reporte_general"):
         with st.spinner("Generando Reporte 🦜"):
-            respuesta = orquestador.invoke({"input": "Quero um relatório com informações sobre os dados"})
+            respuesta = orquestador.invoke({"input": "Quiero un reporte con información sobre los datos"})
             st.session_state['reporte_general'] = respuesta["output"]
 
     # Exhibe el reporte con botón de descarga
