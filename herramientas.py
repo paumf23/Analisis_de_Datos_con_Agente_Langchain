@@ -163,7 +163,8 @@ def generar_grafico(pregunta: str, df:pd.DataFrame) -> str:
         7. Posiciona el título a la izquierda con `loc='left'`, deja el `pad=20` y usa `fontsize=14`;
         8. Mantén los ticks del eje X sin rotación con `plt.xticks(rotation=0)`;
         9. Elimina los bordes superior y derecho del gráfico con `sns.despine()`;
-        10. Finaliza el código con `plt.show()`.
+        10. Utiliza SIEMPRE el DataFrame completo (`df`). NO filtres los datos, ni limites la cantidad de categorías mostradas a menos que el usuario lo solicite explícitamente;
+        11. Finaliza el código con `plt.show()`.
 
         Devuelve ÚNICAMENTE el código Python, sin ningún texto adicional ni explicación.
 
@@ -227,6 +228,9 @@ def crear_herramientas(df):
                     Las palabras-clave que indican el uso de esta herramienta incluyen: 'crea un gráfico', 
                     'reliza un plot', 'plotea', 'visualiza', 'muestra la distribución', 
                     'representa graficamente', entre otras.
+                    IMPORTANTE: Pasa la solicitud del usuario de forma directa y literal a esta herramienta. 
+                    NO intentes listar, adivinar ni pre-filtrar las categorías (ej: no agregues nombres de categorías 
+                    si el usuario no los especificó).
                     """,
         return_direct = True
     )
