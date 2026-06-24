@@ -179,7 +179,8 @@ def generar_grafico(pregunta: str, df:pd.DataFrame) -> str:
     script_limpio = script_bruto.replace("```python","").replace("```","")
     exec_globals = {"df":df,
                     "plt":plt,
-                    "sns":sns}
+                    "sns":sns,
+                    "pd": pd}
     exec_locals = {}
 
     exec(script_limpio, exec_globals, exec_locals)
