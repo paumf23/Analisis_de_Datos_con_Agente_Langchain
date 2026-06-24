@@ -100,8 +100,8 @@ if archivo_cargado:
                                 tools=tools,
                                 verbose=True,
                                 handle_parsing_errors=True,
-                                max_iterations=4,
-                                early_stopping_method="generate")
+                                max_iterations=4
+                                )
 
     # ACCIONES RÁPIDAS
     st.markdown("---")
